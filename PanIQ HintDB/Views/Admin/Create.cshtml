@@ -1,0 +1,37 @@
+﻿@model User
+@{
+	ViewData["Title"] = "Create A User";
+}
+  
+<h1>Create A New User</h1>
+
+<div class="col-md-4">
+	<section>
+		<div asp-validation-summary="All" class="text-danger"></div>
+
+		<form method="post">
+			<div class="form-floating mb-3">
+				<input asp-for="Name" class="form-control" autocomplete="name" aria-required="true" placeholder="Name"></Input>
+				<label asp-for="Name" class="form-label">Name</label>
+			</div>
+			
+			<div class="form-floating mb-3">
+				<input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+				<label asp-for="Email" class="form-label">Email</label>
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+
+			<div class="form-floating mb-3">
+				<input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+				<label asp-for="Password" class="form-label">Password</label>
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+
+			<button type="submit" class="w-100 btn btn-lg btn-primary">Create</button>
+			<div style="margin-top: 10px">
+				<a asp-action="Index" class="w-100 btn btn-lg btn-secondary">Back</a>
+			</div>
+		</form>		
+
+	</section>
+</div>

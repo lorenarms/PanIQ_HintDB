@@ -1,0 +1,40 @@
+﻿@model Login
+@{
+	ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+
+<div class="col-md-4">
+	<section>
+		
+		<div class="text-danger" asp-validation-summary="All"></div>
+	  
+
+		<form asp-action="Login" method="post">
+			<input type="hidden" asp-for="ReturnUrl" />
+			<div class="form-floating mb-3">
+				<input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+				<label asp-for="Email" class="form-label">Email</label>
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+			<div class="form-floating mb-3">
+				<input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+				<label asp-for="Password" class="form-label">Password</label>
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+		
+		
+			<div class="form-floating mb-3">
+				Remember me? <input type="checkbox" asp-for="Remember" />
+			</div>
+			<button class="w-100 btn btn-lg btn-primary" type="submit">Log In</button>
+			@*<a class="btn btn-info" asp-action="GoogleLogin">Log In With Google</a>
+		<a class="btn btn-secondary" asp-action="ForgotPassword">Forgot Password</a>*@
+		</form>
+
+		
+
+	</section>
+</div>

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PanIQ_HintDB.Data;
+using PanIQ_HintDB.Models;
 
 namespace PanIQ_HintDB
 {
@@ -12,15 +13,32 @@ namespace PanIQ_HintDB
 
 			// Add services to the container.
 			var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+			
 			builder.Services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(connectionString));
+
 			builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-			builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-				.AddEntityFrameworkStores<ApplicationDbContext>();
-			builder.Services.AddControllersWithViews();
+			
+			builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddDefaultTokenProviders();
 
+			
+
+			builder.Services.Configure<IdentityOptions>(opts =>
+			{
+				opts.Lockout.AllowedForNewUsers = true;
+				opts.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+				opts.Lockout.MaxFailedAccessAttempts = 3;
+			});
+
+			builder.Services.AddControllersWithViews();
+			
 			var app = builder.Build();
+
+
+
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
@@ -45,8 +63,7 @@ namespace PanIQ_HintDB
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
-			app.MapRazorPages();
-
+			
 			app.Run();
 		}
 	}
