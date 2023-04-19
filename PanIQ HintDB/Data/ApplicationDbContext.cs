@@ -9,6 +9,12 @@ namespace PanIQ_HintDB.Data
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
+
 		}
+
+		public DbSet<Room> Rooms { get; set; }
+		public DbSet<Hint> Hint { get; set; }
+		public DbSet<HintEntry> HintEntry { get; set; }
+
 	}
 }
