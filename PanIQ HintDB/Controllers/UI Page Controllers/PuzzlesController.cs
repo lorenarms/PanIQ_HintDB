@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PanIQ_HintDB.Data;
 using PanIQ_HintDB.Models;
@@ -31,6 +32,14 @@ namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 
 			};
 			return View("PuzzleForm", viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult GetPuzzlesByRoomId(int roomId)
+		{
+			var puzzles = _context.Puzzle.Where(x => x.RoomId == roomId).ToList();
+			var sortedPuzzles = puzzles.OrderBy(o => o.Order).ToList();
+			return Json( new { data = sortedPuzzles });
 		}
 
 		public IActionResult Edit(int id)

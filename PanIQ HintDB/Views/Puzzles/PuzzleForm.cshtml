@@ -1,4 +1,13 @@
-﻿@model PanIQ_HintDB.ViewModels.PuzzleFormViewModel
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model PanIQ_HintDB.ViewModels.PuzzleFormViewModel
+
+
+@{
+	ViewBag.Title = Model.Title;
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <h2>@Model.Title</h2>
 
@@ -10,13 +19,61 @@
 	<div class="mb-3">
 		@Html.LabelFor(r => r.RoomId)
 		@Html.DropDownListFor(r => r.RoomId,
-			new SelectList(Model.Rooms, "Id", "Name"), "Select a Room", new { @class="form-control" })
+			new SelectList(Model.Rooms, "Id", "Name"), "Select a Room", new { @class="form-control", id="roomList"})
 		@Html.ValidationMessageFor(r => r.RoomId)
 	</div>
 
-	@*TODO: add second drop-down that populates based on selection of first drop-down*@
-
-
+	
+	<div class="form-group" id="PuzzleSelectDropdownDiv">
+		<label>Puzzle</label>
+		@*@Html.LabelFor(x => x.Name, htmlAttributes: new {@class = "control-label col-md-2"})*@
+		<div>
+			<select class="form-control" id="PuzzleSelectDropdown" name="PuzzleSelectDropdown"></select>
+		</div>
+	</div>
+	
 }
+
+<script>
+	$(document).ready(function() {
+		$("#PuzzleSelectDropdownDiv").hide();
+	});
+
+	$("#roomList").change(function() {
+		var selectedVal = $(this).val();
+
+		$.ajax(
+			{
+
+				type: 'POST',
+				dataType: 'JSON',
+				url: '/Puzzles/GetPuzzlesByRoomId',
+				data: { roomId: selectedVal },
+				success:
+					function(response) {
+						console.log(response.data);
+						var markup = "<option value='0'>Select a Puzzle</option>";
+
+						for (var i = 0; i < response.data.length; i++) {
+							markup += "<option value=" + response.data[i].id + ">" + response.data[i].order.toString() + ": " + response.data[i].name + "</option>";
+						}
+						$("#PuzzleSelectDropdown").html(markup);
+						$("#PuzzleSelectDropdownDiv").show();
+
+					},
+				error:
+					function(response) {
+						alert("Error: " + response);
+					}
+
+		});
+	});
+
+
+</script>
+
+
+
+
 
 @*https://www.youtube.com/watch?v=xgwsAHeZaX0*@
