@@ -14,6 +14,7 @@ namespace PanIQ_HintDB.Data
 
 		public DbSet<Room> Rooms { get; set; }
 		public DbSet<Hint> Hint { get; set; }
+		public DbSet<Puzzle> Puzzle { get; set; }
 		public DbSet<HintEntry> HintEntry { get; set; }
 
 	}

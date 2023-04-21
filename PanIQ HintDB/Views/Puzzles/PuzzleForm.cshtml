@@ -1,0 +1,22 @@
+﻿@model PanIQ_HintDB.ViewModels.PuzzleFormViewModel
+
+<h2>@Model.Title</h2>
+
+
+@using (Html.BeginForm("Save", "Puzzles"))
+{
+	@Html.ValidationSummary()
+
+	<div class="mb-3">
+		@Html.LabelFor(r => r.RoomId)
+		@Html.DropDownListFor(r => r.RoomId,
+			new SelectList(Model.Rooms, "Id", "Name"), "Select a Room", new { @class="form-control" })
+		@Html.ValidationMessageFor(r => r.RoomId)
+	</div>
+
+	@*TODO: add second drop-down that populates based on selection of first drop-down*@
+
+
+}
+
+@*https://www.youtube.com/watch?v=xgwsAHeZaX0*@

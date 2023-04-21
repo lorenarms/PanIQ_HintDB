@@ -2,16 +2,15 @@
 
 namespace PanIQ_HintDB.Models
 {
-	public class Hint
+	public class Puzzle
 	{
 		public byte Id { get; set; }
 		public string Name { get; set; }
-		public Puzzle Puzzle { get; set; }
-
-		[Display(Name = "Puzzle")]
-		public byte PuzzleId { get; set; }
+		public Room Room { get; set; }
 		
-		public int Order { get; set; }
+		[Display(Name = "Room")]
+		public byte RoomId { get; set; }
 
+		public int Order { get; set; }
 	}
 }

@@ -10,8 +10,5 @@ namespace PanIQ_HintDB.Models
 
 		public byte HintId { get; set; }
 
-		
-
-
 	}
 }

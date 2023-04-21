@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PanIQ_HintDB.Models.Room>
+
+<h2>Rooms</h2>
+
+<div>
+	<table id="rooms" class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Room Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var room in Model)
+				{
+					<tr>
+						<td>@room.Id</td>
+						<td>@room.Name</td>
+					</tr>
+				}
+		</tbody>
+	</table>
+
+</div>
