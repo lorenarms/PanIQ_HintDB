@@ -6,7 +6,7 @@ namespace PanIQ_HintDB.Models
 	{
 		public byte Id { get; set; }
 		public string Name { get; set; }
-		public Room Room { get; set; }
+		public Room? Room { get; set; }
 		
 		[Display(Name = "Room")]
 		public byte RoomId { get; set; }

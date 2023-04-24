@@ -30,7 +30,6 @@ namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 			var viewModel = new PuzzleFormViewModel
 			{
 				Rooms = rooms,
-				Puzzles = puzzles
 			};
 			return View("PuzzleForm", viewModel);
 		}
@@ -51,7 +50,6 @@ namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 				var viewModel = new PuzzleFormViewModel(puzzle)
 				{
 					Rooms = _context.Rooms.ToList(),
-					Puzzles = _context.Puzzle.ToList()
 
 				};
 				return View("PuzzleForm", viewModel);

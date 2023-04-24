@@ -1,16 +1,13 @@
 ﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model PanIQ_HintDB.ViewModels.PuzzleFormViewModel
 
-
 @{
 	ViewBag.Title = Model.Title;
 }
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <h2>@Model.Title</h2>
-
 
 @using (Html.BeginForm("Save", "Puzzles"))
 {
@@ -23,58 +20,32 @@
 		@Html.ValidationMessageFor(r => r.RoomId)
 	</div>
 
-	// Text box for puzzle name
+	<div id="PuzzleTextInputForm">
+		<div class="mb-3">
+			@Html.LabelFor(n => n.Name)
+			@Html.TextBoxFor(n => n.Name, new { @class="form-control" })
+			@Html.ValidationMessageFor(n => n.Name)
+		</div>
 
-	// Text box for puzzle order
+		<div class="mb-3">
+			@Html.LabelFor(o => o.Order)
+			@Html.TextBoxFor(o => o.Order, new { @class="form-control" })
+			@Html.ValidationMessageFor(o => o.Name)
+		</div>
 
-	
+	</div>
+
 	<button type="submit" class="btn btn-primary">Save</button>
-	
 }
 
 <script>
 	$(document).ready(function() {
-		$("#PuzzleSelectDropdownDiv").hide();
-		$("#HintSelectionDropdownDiv").hide();
+		$("#PuzzleTextInputForm").hide();
 	});
 
 	$("#roomList").change(function() {
-		var selectedVal = $(this).val();
-
-		$.ajax(
-			{
-
-				type: 'POST',
-				dataType: 'JSON',
-				url: '/Puzzles/GetPuzzlesByRoomId',
-				data: { roomId: selectedVal },
-				success:
-					function(response) {
-						console.log(response.data);
-						var markup = "<option value='0'>Select a Puzzle</option>";
-
-						for (var i = 0; i < response.data.length; i++) {
-							markup += "<option value=" + response.data[i].id + ">" + response.data[i].order.toString() + ": " + response.data[i].name + "</option>";
-						}
-						$("#PuzzleSelectDropdown").html(markup);
-						$("#PuzzleSelectDropdownDiv").show();
-
-					},
-				error:
-					function(response) {
-						alert("Error: " + response);
-					}
-
-		});
+		$("#PuzzleTextInputForm").show();
 	});
-
-	//$("#PuzzleSelectDropdown").change(function() {
-	//	$("#HintSelectionDropdownDiv").show();
-	//	var puzzle = $("#PuzzleSelectDropdown").val();
-	//	console.log(puzzle);
-	//});
-
-
 </script>
 
 

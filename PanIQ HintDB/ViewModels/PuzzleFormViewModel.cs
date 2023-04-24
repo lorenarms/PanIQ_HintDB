@@ -5,20 +5,24 @@ namespace PanIQ_HintDB.ViewModels
 {
 	public class PuzzleFormViewModel
 	{
+		//Lists for page
 		public IEnumerable<Room> Rooms { get; set; }
-
-		public IEnumerable<Puzzle> Puzzles { get; set; }
-
+		
+		//Puzzle attributes
 		public int? Id { get; set; }
-
+		
+		[Required]
 		[Display(Name = "Puzzle Name")]
 		public string Name { get; set; }
 
 		[Display(Name = "Room Name")]
 		public byte RoomId { get; set; }
 
+		[Required]
+		[Range(0, int.MaxValue)]
 		public int Order { get; set; }
 
+		//Page methods
 		public string Title
 		{
 			get
