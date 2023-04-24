@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PanIQ_HintDB.Data;
+using PanIQ_HintDB.ViewModels;
 
 namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 {
@@ -19,5 +20,22 @@ namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 				.ThenInclude(p => p.Room);
 			return View(hints);
 		}
+
+
+		[Route("/hints/new")]
+		public IActionResult New()
+		{
+			var puzzles = _context.Puzzle.ToList();
+			var rooms = _context.Rooms.ToList();
+			var viewModel = new HintFormViewModel()
+			{
+				Puzzles = puzzles,
+				Rooms = rooms
+
+			};
+			return View("HintForm", viewModel);
+		}
+
+
 	}
 }

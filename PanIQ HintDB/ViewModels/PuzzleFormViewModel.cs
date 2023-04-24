@@ -7,11 +7,14 @@ namespace PanIQ_HintDB.ViewModels
 	{
 		public IEnumerable<Room> Rooms { get; set; }
 
+		public IEnumerable<Puzzle> Puzzles { get; set; }
+
 		public int? Id { get; set; }
 
+		[Display(Name = "Puzzle Name")]
 		public string Name { get; set; }
 
-		[Display(Name = "Room")]
+		[Display(Name = "Room Name")]
 		public byte RoomId { get; set; }
 
 		public int Order { get; set; }

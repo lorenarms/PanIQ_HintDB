@@ -1,5 +1,5 @@
 ﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
-@model PanIQ_HintDB.ViewModels.PuzzleFormViewModel
+@model PanIQ_HintDB.ViewModels.HintFormViewModel
 
 
 @{
@@ -11,6 +11,25 @@
 
 <h2>@Model.Title</h2>
 
+@*
+	TODO:
+	adjust this form to contain
+		1. dropdown for rooms
+		2. dropdown for puzzles that populates once room is selected
+		3. text box for
+			hint name
+			hint description
+			order
+			* that appears after puzzle is selected
+		4. submit button to submit to form
+		5. use AJAX
+		
+
+	AJAX code below will show a dropdown for rooms and
+	then populate a new dropdown with the puzzles for
+	that room
+*@
+
 
 @using (Html.BeginForm("Save", "Puzzles"))
 {
@@ -19,26 +38,32 @@
 	<div class="mb-3">
 		@Html.LabelFor(r => r.RoomId)
 		@Html.DropDownListFor(r => r.RoomId,
-			new SelectList(Model.Rooms, "Id", "Name"), "Select a Room", new { @class="form-control", id="roomList"})
+	new SelectList(Model.Rooms, "Id", "Name"), "Select a Room", new { @class="form-control", id="roomList"})
 		@Html.ValidationMessageFor(r => r.RoomId)
 	</div>
 
-	// Text box for puzzle name
 
-	// Text box for puzzle order
+	<div class="mb-3" id="PuzzleSelectDropdownDiv">
+		@Html.LabelFor(p => p.Name)
+		<select asp-for="Id" class="form-control" id="PuzzleSelectDropdown"></select>
+	</div>
 
+
+	<div class="form-group" id="HintSelectionDropdownDiv">
+		<label>Hint</label>
+	</div>
 	
+
 	<button type="submit" class="btn btn-primary">Save</button>
-	
 }
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(function () {
 		$("#PuzzleSelectDropdownDiv").hide();
 		$("#HintSelectionDropdownDiv").hide();
 	});
 
-	$("#roomList").change(function() {
+	$("#roomList").change(function () {
 		var selectedVal = $(this).val();
 
 		$.ajax(
@@ -49,7 +74,7 @@
 				url: '/Puzzles/GetPuzzlesByRoomId',
 				data: { roomId: selectedVal },
 				success:
-					function(response) {
+					function (response) {
 						console.log(response.data);
 						var markup = "<option value='0'>Select a Puzzle</option>";
 
@@ -61,18 +86,18 @@
 
 					},
 				error:
-					function(response) {
+					function (response) {
 						alert("Error: " + response);
 					}
 
-		});
+			});
 	});
 
-	//$("#PuzzleSelectDropdown").change(function() {
-	//	$("#HintSelectionDropdownDiv").show();
-	//	var puzzle = $("#PuzzleSelectDropdown").val();
-	//	console.log(puzzle);
-	//});
+	$("#PuzzleSelectDropdown").change(function () {
+		$("#HintSelectionDropdownDiv").show();
+		var puzzle = $("#PuzzleSelectDropdown").val();
+		console.log(puzzle);
+	});
 
 
 </script>
