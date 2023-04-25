@@ -245,7 +245,7 @@ namespace PanIQ_HintDB.Data.Migrations
                     b.ToTable("Hint");
                 });
 
-            modelBuilder.Entity("PanIQ_HintDB.Models.HintEntry", b =>
+            modelBuilder.Entity("PanIQ_HintDB.Models.NewHintEntry", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -253,17 +253,29 @@ namespace PanIQ_HintDB.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<byte>("HintId")
-                        .HasColumnType("tinyint");
+                    b.Property<string>("Bypass")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<int?>("HintId1")
+                    b.Property<string>("CustomText")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Glitch")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("HintId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HintId1");
+                    b.HasIndex("HintId");
 
-                    b.ToTable("HintEntry");
+                    b.ToTable("NewHintEntry");
                 });
 
             modelBuilder.Entity("PanIQ_HintDB.Models.Puzzle", b =>
@@ -367,11 +379,13 @@ namespace PanIQ_HintDB.Data.Migrations
                     b.Navigation("Puzzle");
                 });
 
-            modelBuilder.Entity("PanIQ_HintDB.Models.HintEntry", b =>
+            modelBuilder.Entity("PanIQ_HintDB.Models.NewHintEntry", b =>
                 {
                     b.HasOne("PanIQ_HintDB.Models.Hint", "Hint")
                         .WithMany()
-                        .HasForeignKey("HintId1");
+                        .HasForeignKey("HintId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Hint");
                 });

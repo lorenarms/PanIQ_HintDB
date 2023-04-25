@@ -12,8 +12,8 @@ using PanIQ_HintDB.Data;
 namespace PanIQ_HintDB.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230419181245_PopulateRooms")]
-    partial class PopulateRooms
+    [Migration("20230425130320_CreateTablesAndSeed")]
+    partial class CreateTablesAndSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -224,19 +224,25 @@ namespace PanIQ_HintDB.Data.Migrations
 
             modelBuilder.Entity("PanIQ_HintDB.Models.Hint", b =>
                 {
-                    b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PuzzleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("RoomId")
-                        .HasColumnType("tinyint");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("PuzzleId");
 
                     b.ToTable("Hint");
                 });
@@ -249,14 +255,51 @@ namespace PanIQ_HintDB.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<byte>("HintId")
-                        .HasColumnType("tinyint");
+                    b.Property<string>("Bypass")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Glitch")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HintId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HintId");
 
                     b.ToTable("HintEntry");
+                });
+
+            modelBuilder.Entity("PanIQ_HintDB.Models.Puzzle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("RoomId")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Puzzle");
                 });
 
             modelBuilder.Entity("PanIQ_HintDB.Models.Room", b =>
@@ -326,13 +369,13 @@ namespace PanIQ_HintDB.Data.Migrations
 
             modelBuilder.Entity("PanIQ_HintDB.Models.Hint", b =>
                 {
-                    b.HasOne("PanIQ_HintDB.Models.Room", "Room")
+                    b.HasOne("PanIQ_HintDB.Models.Puzzle", "Puzzle")
                         .WithMany()
-                        .HasForeignKey("RoomId")
+                        .HasForeignKey("PuzzleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Room");
+                    b.Navigation("Puzzle");
                 });
 
             modelBuilder.Entity("PanIQ_HintDB.Models.HintEntry", b =>
@@ -344,6 +387,17 @@ namespace PanIQ_HintDB.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Hint");
+                });
+
+            modelBuilder.Entity("PanIQ_HintDB.Models.Puzzle", b =>
+                {
+                    b.HasOne("PanIQ_HintDB.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
                 });
 #pragma warning restore 612, 618
         }
