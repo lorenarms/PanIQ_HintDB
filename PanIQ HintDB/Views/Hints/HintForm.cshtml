@@ -38,19 +38,30 @@
 	<div class="mb-3">
 		@Html.LabelFor(r => r.RoomId)
 		@Html.DropDownListFor(r => r.RoomId,
-	new SelectList(Model.Rooms, "Id", "Name"), "Select a Room", new { @class="form-control", id="roomList"})
+			new SelectList(Model.Rooms, 
+				"Id", 
+				"Name"), 
+				"Select a Room", 
+				new { @class="form-control", id="roomList"})
 		@Html.ValidationMessageFor(r => r.RoomId)
 	</div>
 
 
 	<div class="mb-3" id="PuzzleSelectDropdownDiv">
-		@Html.LabelFor(p => p.Name)
+		@Html.LabelFor(p => p.Order)
 		<select asp-for="Id" class="form-control" id="PuzzleSelectDropdown"></select>
 	</div>
 
 
-	<div class="form-group" id="HintSelectionDropdownDiv">
-		<label>Hint</label>
+	<div class="mb-3" id="HintOrderAndText">
+		<div class="mb-3">
+			@Html.LabelFor(h => h.Order)
+			@Html.TextBoxFor(h => h.Order, new { @class= "form-control" })
+		</div>
+		<div class="mb-3">
+			@Html.LabelFor(h => h.Text)
+			@Html.TextAreaFor(h => h.Text, new { @class= "form-control" })
+		</div>
 	</div>
 	
 
@@ -60,7 +71,7 @@
 <script>
 	$(document).ready(function () {
 		$("#PuzzleSelectDropdownDiv").hide();
-		$("#HintSelectionDropdownDiv").hide();
+		$("#HintOrderAndText").hide();
 	});
 
 	$("#roomList").change(function () {
@@ -94,9 +105,8 @@
 	});
 
 	$("#PuzzleSelectDropdown").change(function () {
-		$("#HintSelectionDropdownDiv").show();
-		var puzzle = $("#PuzzleSelectDropdown").val();
-		console.log(puzzle);
+		$("#HintOrderAndText").show();
+		
 	});
 
 

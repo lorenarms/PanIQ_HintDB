@@ -12,12 +12,17 @@
 		<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 			<ul class="navbar-nav flex-grow-1">
 		        
+				<li class="nav-item">
+					<a class="nav-link text-dark" asp-area="" asp-controller="Puzzles" asp-action="Index">Puzzles</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link text-dark" asp-area="" asp-controller="Hints" asp-action="Index">Hints</a>
+				</li>
 		        
 				@if (SignInManager.IsSignedIn(User))
 				{
-					<li class="nav-item">
-						<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">UserAccess</a>
-					</li>
+					
 				}
 				
 				@if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))

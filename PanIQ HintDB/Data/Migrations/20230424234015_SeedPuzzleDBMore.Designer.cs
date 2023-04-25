@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PanIQ_HintDB.Data;
 
@@ -11,9 +12,10 @@ using PanIQ_HintDB.Data;
 namespace PanIQ_HintDB.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230424234015_SeedPuzzleDBMore")]
+    partial class SeedPuzzleDBMore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,19 +230,26 @@ namespace PanIQ_HintDB.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PuzzleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("PuzzleId")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("PuzzleId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("PuzzleId");
+                    b.HasIndex("PuzzleId1");
 
                     b.ToTable("Hint");
                 });
@@ -360,7 +369,7 @@ namespace PanIQ_HintDB.Data.Migrations
                 {
                     b.HasOne("PanIQ_HintDB.Models.Puzzle", "Puzzle")
                         .WithMany()
-                        .HasForeignKey("PuzzleId")
+                        .HasForeignKey("PuzzleId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

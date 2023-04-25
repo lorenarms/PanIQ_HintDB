@@ -4,17 +4,17 @@ namespace PanIQ_HintDB.Models
 {
 	public class Hint
 	{
-		public byte Id { get; set; }
-		public string Name { get; set; }
+		public int Id { get; set; }
 
-		public string Description { get; set; }
-
+		[Required]
+		public int Order { get; set; }
 		public Puzzle Puzzle { get; set; }
 
+		[Required]
 		[Display(Name = "Puzzle")]
-		public byte PuzzleId { get; set; }
+		public int PuzzleId { get; set; }
+		public string Text { get; set; }
 		
-		public int Order { get; set; }
 
 	}
 }

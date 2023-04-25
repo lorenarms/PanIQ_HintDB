@@ -9,17 +9,14 @@ namespace PanIQ_HintDB.ViewModels
 
 		public IEnumerable<Puzzle> Puzzles { get; set; }
 
-		//Hint ID
+		//Hint Info
 		public int Id { get; set; }
-		//Hint Name
-		public string Name { get; set; }
-		//Hint Description
-		public string Description { get; set; }
+		public int Order { get; set; }
+		public string Text { get; set; }
 
 		//Puzzle Info
 		[Display(Name = "Puzzle")]
-		public byte PuzzleId { get; set; }
-		public int Order { get; set; }
+		public int PuzzleId { get; set; }
 
 		//Room Info
 		public byte RoomId { get; set; }
@@ -37,10 +34,9 @@ namespace PanIQ_HintDB.ViewModels
 		public HintFormViewModel(Hint hint)
 		{
 			Id = hint.Id;
-			Name = hint.Name;
-			Description = hint.Description;
-			PuzzleId = hint.PuzzleId;
 			Order = hint.Order;
+			Text = hint.Text;
+			PuzzleId = hint.PuzzleId;
 			
 		}
 	}

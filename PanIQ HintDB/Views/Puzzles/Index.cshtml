@@ -11,19 +11,47 @@
 	<table id="puzzles" class="table table-bordered table-hover">
 		<thead>
 		<tr>
-			<th>Room</th>
 			<th>Puzzle Name</th>
+			<th>Room</th>
+			<th>Order</th>
 		</tr>
 		</thead>
 		<tbody>
-			@foreach (var puzzle in Model)
-			{
-				<tr>
-					<td>@puzzle.Room.Name</td>
-					<td>@puzzle.Name</td>
-				</tr>
-			}
+		@*@foreach (var puzzle in Model)
+		{
+			<tr>
+				<td>@puzzle.Room.Name</td>
+				<td>@puzzle.Name</td>
+			</tr>
+		}*@
 		</tbody>
 	</table>
 
 </div>
+
+
+@section Scripts
+{
+	<script>
+		$(document).ready(function() {
+			var table = $("#puzzles").DataTable({
+				ajax: {
+					url: "/api/puzzles",
+					dataSrc: ""
+				},
+				columns: [
+					{
+						data: "name"
+					},
+					{
+						data: "room.name"
+					},
+					{
+						data: "order"
+					}
+				]
+			});
+		});
+
+	</script>
+}

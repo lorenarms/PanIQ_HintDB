@@ -4,7 +4,7 @@ namespace PanIQ_HintDB.Models
 {
 	public class Puzzle
 	{
-		public byte Id { get; set; }
+		public int Id { get; set; }
 		public string Name { get; set; }
 		public Room? Room { get; set; }
 		

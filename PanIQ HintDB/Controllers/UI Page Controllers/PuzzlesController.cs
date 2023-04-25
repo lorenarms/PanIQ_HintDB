@@ -56,6 +56,20 @@ namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 
 			}
 
+			if (puzzle.Id == 0)
+			{
+				_context.Add(puzzle);
+			}
+			else
+			{
+				var puzzleInDb = _context.Puzzle.Single(p => p.Id == puzzle.Id);
+				puzzleInDb.Name = puzzle.Name;
+				puzzleInDb.RoomId = puzzle.RoomId;
+				puzzleInDb.Order = puzzle.Order;
+			}
+
+			_context.SaveChanges();
+
 			return RedirectToAction("Index", "Puzzles");
 		}
 

@@ -2,24 +2,27 @@
 
 <h2>Hints</h2>
 
+<p>
+	@Html.ActionLink("New Hint", "New","Hints",
+	null, new { @class="btn btn-primary mx-auto" })
+</p>
+
 <div>
 	<table id="puzzles" class="table table-bordered table-hover">
 		<thead>
 		<tr>
-			<th>Id</th>
-			<th>Hint</th>
-			<th>Puzzle</th>
 			<th>Room</th>
+			<th>Puzzle</th>
+			<th>Hint</th>
 		</tr>
 		</thead>
 		<tbody>
 		@foreach (var hint in Model)
 		{
 			<tr>
-				<td>@hint.Id</td>
-				<td>@hint.Name</td>
+				<td>@hint.Puzzle.Room.Name</td>
 				<td>@hint.Puzzle.Name</td>
-				<td>@hint.Puzzle.Room</td>
+				<td>@hint.Order: @hint.Text</td>
 			</tr>
 		}
 		</tbody>
