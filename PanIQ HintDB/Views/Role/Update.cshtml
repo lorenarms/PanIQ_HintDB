@@ -22,10 +22,10 @@
 			@foreach (ApplicationUser user in Model.NonMembers)
 			{
 				<tr>
-					<td>@user.UserName</td>
-					<td>
+					<td class="col-md-1">
 						<input type="checkbox" name="AddIds" value="@user.Id">
 					</td>
+					<td>@user.UserName</td>
 				</tr>
 			}
 		}

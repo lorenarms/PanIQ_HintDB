@@ -1,12 +1,15 @@
-﻿@model string
+﻿@using System.Runtime.InteropServices
+@model string
 
 @{
-	ViewData["Title"] = "HintDB";
+	ViewData["Title"] = "GM Log";
 }
 
 <div class="text-center">
 	<h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	<p>
+		@Html.ActionLink("New Log Entry", "New", "Log", null, new { @class = "btn btn-primary" })
+	</p>
 </div>
 
 @*<h1>Index</h1>

@@ -19,6 +19,7 @@ namespace PanIQ_HintDB.ViewModels
 		public int PuzzleId { get; set; }
 
 		//Room Info
+		[Display(Name = "Room")]
 		public byte RoomId { get; set; }
 		
 		

@@ -8,7 +8,7 @@ namespace PanIQ_HintDB.Models
 
 		[Required]
 		public int Order { get; set; }
-		public Puzzle Puzzle { get; set; }
+		public Puzzle? Puzzle { get; set; }
 
 		[Required]
 		[Display(Name = "Puzzle")]

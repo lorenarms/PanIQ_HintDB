@@ -2,14 +2,11 @@
 
 namespace PanIQ_HintDB.Models
 {
-	public class NewHintEntry
+	public class LogEntry
 	{
 		public int Id { get; set; }
 		
-		public Hint? Hint { get; set; }
-
-		[Display(Name = "Hint")]
-		public int HintId { get; set; }
+		
 
 		[Display(Name = "Custom Text")]
 		[StringLength(255)]
@@ -23,6 +20,12 @@ namespace PanIQ_HintDB.Models
 
 		[Display(Name = "Date Added")]
 		public DateTime DateAdded { get; set; }
+
+
+		public Hint? Hint { get; set; }
+
+		[Display(Name = "Hint")]
+		public int HintId { get; set; }
 
 
 

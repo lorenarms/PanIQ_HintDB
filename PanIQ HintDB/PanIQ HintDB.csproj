@@ -20,4 +20,8 @@
     <Folder Include="AppData\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Images\horseshoe.png" />
+  </ItemGroup>
+
 </Project>

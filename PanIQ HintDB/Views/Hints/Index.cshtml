@@ -8,7 +8,7 @@
 </p>
 
 <div>
-	<table id="puzzles" class="table table-bordered table-hover">
+	<table id="hints" class="table table-bordered table-hover">
 		<thead>
 		<tr>
 			<th>Room</th>
@@ -17,15 +17,44 @@
 		</tr>
 		</thead>
 		<tbody>
-		@foreach (var hint in Model)
-		{
-			<tr>
-				<td>@hint.Puzzle.Room.Name</td>
-				<td>@hint.Puzzle.Name</td>
-				<td>@hint.Order: @hint.Text</td>
-			</tr>
-		}
+		
 		</tbody>
 	</table>
 
 </div>
+
+@section Scripts
+{
+	<script>
+		$(document).ready(function() {
+			var table = $("#hints").DataTable({
+				order: [[1, 'asc']],
+				
+				"columnDefs": [
+					{ "width": "20%", "targets": 0 },
+					{ "width": "20%", "targets": 1 }
+
+				],
+				ajax: {
+					url: "/api/hints",
+					dataSrc: ""
+				},
+				columns: [
+					{
+						data: "puzzle.room.name"
+					},
+					{
+						data: "puzzle.name"
+					},
+					{
+						data: { order: "order", text: "text" },
+						render: function(data, type, full) {
+							return data.order + ": " + data.text;
+						}
+					}
+				]
+			});
+		});
+
+	</script>
+}
