@@ -49,7 +49,15 @@
 					{
 						data: { order: "order", text: "text" },
 						render: function(data, type, full) {
-							return data.order + ": " + data.text;
+
+							var hintText = data.text;
+
+							if (hintText.length > 60) {
+								hintText = hintText.substring(0, 60);
+								hintText += "...\"";
+							}
+
+							return data.order + ": " + hintText;
 						}
 					}
 				]
