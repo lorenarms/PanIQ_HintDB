@@ -71,7 +71,8 @@ namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 
 			_context.SaveChanges();
 
-			return RedirectToAction("Index", "Log");
+			
+			return RedirectToAction("New", "Log");
 		}
 
 		public IActionResult Details(int id)
