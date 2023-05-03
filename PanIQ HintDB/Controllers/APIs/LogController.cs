@@ -17,7 +17,7 @@ namespace PanIQ_HintDB.Controllers.APIs
 		}
 
 		[HttpGet]
-		[Route("/api/entries")]
+		[Route("/api/log")]
 		public IActionResult GetAllEntries()
 		{
 			return Ok(_context.

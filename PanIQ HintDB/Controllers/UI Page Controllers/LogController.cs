@@ -73,5 +73,21 @@ namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 
 			return RedirectToAction("Index", "Log");
 		}
+
+		public IActionResult Details(int id)
+		{
+			var entry = _context.LogEntry.
+				Include(h => h.Hint).
+				ThenInclude(p => p.Puzzle).
+				ThenInclude(r => r.Room).
+				SingleOrDefault(m => m.Id == id);
+
+			if (entry == null)
+			{
+				return new NotFoundResult();
+
+			}
+			return View(entry);
+		}
 	}
 }

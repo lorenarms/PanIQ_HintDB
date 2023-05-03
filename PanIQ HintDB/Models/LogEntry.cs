@@ -28,6 +28,8 @@ namespace PanIQ_HintDB.Models
 		public int HintId { get; set; }
 
 
+		public string ShortDate => DateAdded.ToShortDateString();
 
+		public string TimeAdded => DateAdded.ToShortTimeString();
 	}
 }
