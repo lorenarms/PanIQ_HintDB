@@ -1,0 +1,153 @@
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model PanIQ_HintDB.ViewModels.LogEntryFormViewModel
+
+
+@{
+	ViewBag.Title = Model.Title;
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<h2>@Model.Title</h2>
+
+<p>
+	@Model._ct.Today &#8226 @Model._ct.RightNow
+</p>
+
+@using (Html.BeginForm("Save", "Log"))
+{
+	@Html.ValidationSummary()
+
+	<div class="mb-3">
+		@Html.LabelFor(r => r.RoomId)
+		@Html.DropDownListFor(r => r.RoomId,
+			new SelectList(Model.Rooms, 
+				"Id", 
+				"Name"), 
+			"Select a Room", 
+			new { @class="form-control", id="roomList"})
+		@Html.ValidationMessageFor(r => r.RoomId)
+	</div>
+	
+	<div class="mb-3" id="PuzzleSelectDropdownDiv">
+		@Html.LabelFor(p => p.PuzzleId)
+		<select asp-for="PuzzleId" class="form-control" id="PuzzleSelectDropdown"></select>
+	</div>
+
+	<div class="mb-3" id="HintSelectDropdownDiv">
+		@Html.LabelFor(h => h.HintId)
+		<select asp-for="HintId" class="form-control" id="HintSelectDropdown"></select>
+	</div>
+
+
+	<div class="mb-3" id="EntryTextFields">
+		<div class="mb-3">
+			@Html.LabelFor(x => x.CustomText)
+			@Html.TextBoxFor(x => x.CustomText, new { @class= "form-control" })
+		</div>
+		<div class="mb-3">
+			@Html.LabelFor(h => h.Glitch)
+			@Html.TextAreaFor(h => h.Glitch, new { @class= "form-control" })
+		</div>
+		<div class="mb-3">
+			@Html.LabelFor(h => h.Bypass)
+			@Html.TextAreaFor(h => h.Bypass, new { @class= "form-control" })
+		</div>
+	</div>
+
+	
+	@Html.HiddenFor(h => h.Id)
+	<button id="newlogsubmit" type="submit" class="btn btn-primary">Save</button>
+	<a asp-action="Index" asp-controller="Log" class="btn btn-secondary">Back</a>
+
+}
+
+
+<script>
+	$(document).ready(function () {
+		$("#PuzzleSelectDropdownDiv").hide();
+		$("#HintSelectDropdownDiv").hide();
+		$("#EntryTextFields").hide();
+
+		$("#newlogsubmit").click(function() {
+			toastr.success('Log successfully recorded!');
+		});
+	});
+
+	$("#roomList").change(function () {
+		var selectedVal = $(this).val();
+
+		$.ajax(
+			{
+
+				type: 'POST',
+				dataType: 'JSON',
+				url: '/Puzzles/GetPuzzlesByRoomId',
+				data: { roomId: selectedVal },
+				success:
+					function (response) {
+						console.log(response.data);
+						var markup = "<option value='0'>Select a Puzzle</option>";
+
+						for (var i = 0; i < response.data.length; i++) {
+							markup += "<option value=" + response.data[i].id + ">" + response.data[i].order.toString() + ": " + response.data[i].name + "</option>";
+						}
+						$("#PuzzleSelectDropdown").html(markup);
+						$("#PuzzleSelectDropdownDiv").show();
+
+					},
+				error:
+					function (response) {
+						alert("Error: " + response);
+					}
+
+			});
+	});
+
+
+	$("#PuzzleSelectDropdown").change(function () {
+		var selectedVal = $(this).val();
+
+		$.ajax(
+			{
+
+				type: 'POST',
+				dataType: 'JSON',
+				url: '/Hints/GetHintsByPuzzleId',
+				data: { puzzleId: selectedVal },
+				success:
+					function (response) {
+						console.log(response.data);
+						var markup = "<option value='0'>Select a Hint</option>";
+
+						for (var i = 0; i < response.data.length; i++) {
+							
+							var hintText = response.data[i].text;
+
+							if (hintText.length > 60) {
+								hintText = hintText.substring(0, 60);
+								hintText += "...\"";
+							}
+
+							markup += "<option value=" + response.data[i].id + ">" + response.data[i].order.toString() + ": " + hintText + "</option>";
+						}
+						$("#HintSelectDropdown").html(markup);
+						$("#HintSelectDropdownDiv").show();
+
+					},
+				error:
+					function (response) {
+						alert("Error: " + response);
+					}
+
+			});
+	});
+
+	$("#HintSelectDropdown").change(function () {
+		$("#EntryTextFields").show();
+		
+	});
+
+
+</script>

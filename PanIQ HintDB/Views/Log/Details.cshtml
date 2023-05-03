@@ -1,0 +1,41 @@
+﻿@model LogEntry
+
+<h2>Log Entry ID: @Model.Id</h2>
+<h4>Date: @Model.ShortDate @Model.TimeAdded</h4>
+
+
+<div>
+	<table class="table table-borderless table-hover table-responsive">
+		<tbody>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right; width:10%">Room:</td>
+			<td>@Model.Hint.Puzzle.Room.Name</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right;">Puzzle:</td>
+			<td>@Model.Hint.Puzzle.Name</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right;">Hint:</td>
+			<td>@Model.Hint.Text</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right;">Custom Text:</td>
+			<td>@Model.CustomText</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right;">Glitch:</td>
+			<td>@Model.Glitch</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right;">Bypass:</td>
+			<td>@Model.Bypass</td>
+		</tr>
+			
+
+		</tbody>
+	</table>
+	
+	<a asp-controller="Log" asp-action="Index" class="btn btn-secondary">Back</a>
+
+</div>

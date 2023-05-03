@@ -1,0 +1,88 @@
+﻿@model IEnumerable<PanIQ_HintDB.Models.LogEntry>
+
+<h2>Game Master Log</h2>
+
+<p>
+	@Html.ActionLink("New Entry", "New","Log",
+		null, new { @class="btn btn-primary mx-auto" })
+</p>
+
+<div>
+	<table id="log" class="table table-bordered table-hover">
+		<thead>
+		<tr>
+			<th>Date</th>
+			<th>Room</th>
+			<th>Puzzle</th>
+			
+			<th>Glitch</th>
+			<th>Time</th>
+			<th>Details</th>
+		</tr>
+		</thead>
+		<tbody>
+		@*@foreach (var entry in Model)
+			{
+				<tr>
+					<td>@entry.Hint.Puzzle.Room.Name</td>
+					<td>@entry.Hint.Puzzle.Name</td>
+					<td>@entry.Hint.Order</td>
+					<td>@entry.CustomText</td>
+					<td>@entry.Glitch</td>
+					<td>@entry.Bypass</td>
+					<td>@entry.DateAdded.ToShortDateString() @entry.DateAdded.ToShortTimeString()</td>
+				</tr>
+			}*@
+		</tbody>
+	</table>
+	
+	<p></p>
+
+</div>
+
+@section Scripts
+{
+	<script>
+		$(document).ready(function() {
+			var table = $("#log").DataTable({
+				order: [[0, 'desc'],[4, 'desc']],
+				"columnDefs": [
+					{ "width": "15%", "targets": 0 },
+					{ "width": "15%", "targets": 1 },
+					{ "width": "15%", "targets": 2 },
+					{ "width": "15%", "targets": 4 },
+					{ "width": "10%", "targets": 5 }
+
+				],
+				ajax: {
+					url: "/api/log",
+					dataSrc: ""
+				},
+				columns: [
+					{
+						data: "shortDate"
+					},
+					{
+						data: "hint.puzzle.room.name"
+					},
+					{
+						data: "hint.puzzle.name" 
+					},
+					{
+						data: "glitch"
+					},
+					{
+						data: "timeAdded"
+					},
+					{
+						data: "id",
+						render: function (data, type, logentry) {
+							return "<a href='/log/details/" + logentry.id + "' class='btn btn-outline-primary'>" + "Details" + "</a>";
+						}
+					}
+				]
+			});
+		});
+
+	</script>
+}
