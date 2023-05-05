@@ -27,6 +27,8 @@ namespace PanIQ_HintDB.Models
 		[Display(Name = "Hint")]
 		public int HintId { get; set; }
 
+		
+
 
 		public string ShortDate => DateAdded.ToShortDateString();
 

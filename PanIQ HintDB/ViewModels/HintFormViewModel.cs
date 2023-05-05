@@ -18,6 +18,8 @@ namespace PanIQ_HintDB.ViewModels
 		[Display(Name = "Puzzle")]
 		public int PuzzleId { get; set; }
 
+		public Puzzle? Puzzle { get; set; }
+
 		//Room Info
 		[Display(Name = "Room")]
 		public byte RoomId { get; set; }

@@ -18,16 +18,21 @@
 			<ul class="navbar-nav flex-grow-1">
 		        
 				<li class="nav-item">
+					<a class="nav-link text-dark" asp-area="" asp-controller="Log" asp-action="Index">Log</a>
+				</li>
+
+				@*<li class="nav-item">
 					<a class="nav-link text-dark" asp-area="" asp-controller="Puzzles" asp-action="Index">Puzzles</a>
 				</li>
 
 				<li class="nav-item">
 					<a class="nav-link text-dark" asp-area="" asp-controller="Hints" asp-action="Index">Hints</a>
-				</li>
-
+				</li>*@
+				
 				<li class="nav-item">
-					<a class="nav-link text-dark" asp-area="" asp-controller="Log" asp-action="Index">Log</a>
+					<a class="nav-link text-dark" asp-area="" asp-controller="Rooms" asp-action="Index">Rooms</a>
 				</li>
+				
 
 				@if (SignInManager.IsSignedIn(User))
 				{

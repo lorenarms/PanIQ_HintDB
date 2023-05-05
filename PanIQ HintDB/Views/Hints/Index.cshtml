@@ -18,6 +18,7 @@
 			<th>Room</th>
 			<th>Puzzle</th>
 			<th>Hint</th>
+			<th>Details</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -62,6 +63,12 @@
 							}
 
 							return data.order + ": " + hintText;
+						}
+					},
+					{
+						data: "id",
+						render: function(data, type, hint) {
+							return "<a href='/hints/details/" + hint.id + "' class='btn btn-outline-primary'>" + "Details" + "</a>";
 						}
 					}
 				]

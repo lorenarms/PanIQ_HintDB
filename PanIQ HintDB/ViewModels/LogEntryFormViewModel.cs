@@ -17,10 +17,15 @@ namespace PanIQ_HintDB.ViewModels
 		public string? Bypass { get; set; }
 		public DateTime DateAdded { get; set; }
 
+		[Required]
 		[Display(Name = "Hints")]
 		public int HintId { get; set; }
+		
+		[Required]
 		[Display(Name = "Puzzle")]
 		public int PuzzleId { get; set; }
+		
+		[Required]
 		[Display(Name = "Room")]
 		public byte RoomId { get; set; }
 
@@ -31,6 +36,19 @@ namespace PanIQ_HintDB.ViewModels
 		{
 			Id = 0;
 			
+		}
+
+		public IEnumerable<Puzzle> SetPuzzles(byte id)
+		{
+			List<Puzzle> selectablePuzzles = null;
+			foreach (var puzzle in Puzzles)
+			{
+				if (puzzle.Room.Id == id)
+				{
+					selectablePuzzles.Add(puzzle);
+				}
+			}
+			return selectablePuzzles;
 		}
 
 		public LogEntryFormViewModel(LogEntry entry)

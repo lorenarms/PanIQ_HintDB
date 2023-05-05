@@ -1,0 +1,32 @@
+﻿@model PanIQ_HintDB.ViewModels.HintFormViewModel
+
+
+@{
+	ViewBag.Title = "Edit Hint";
+}
+
+<h2>Puzzle: @Model.Puzzle.Name ID: @Model.PuzzleId</h2>
+
+
+
+
+@using (Html.BeginForm("Save", "Hints"))
+{
+	@Html.ValidationSummary()
+
+	<div class="mb-3">
+		@Html.LabelFor(p => p.Order)
+		@Html.TextBoxFor(p => p.Order, new { placeholder= @Model.Order, @class= "form-control" })
+		@Html.ValidationMessageFor(p => p.Order)
+	</div>
+
+	<div class="mb-3">
+		@Html.LabelFor(p => p.Text)
+		@Html.TextAreaFor(p => p.Text, new { placeholder= @Model.Text,  @class= "form-control" })
+		@Html.ValidationMessageFor(p => p.Text)
+	</div>
+
+	@Html.HiddenFor(h => h.Id)
+	@Html.HiddenFor(h => h.PuzzleId)
+	<button type="submit" class="btn btn-primary">Save</button>
+}

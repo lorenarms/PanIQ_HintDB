@@ -1,0 +1,32 @@
+﻿@model Hint
+
+<h2>Hint ID: @Model.Id</h2>
+
+
+<div>
+	<table class="table table-borderless table-hover table-responsive">
+		<tbody>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right; width:10%">Room:</td>
+			<td>@Model.Puzzle.Room.Name</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right;">Puzzle:</td>
+			<td>@Model.Puzzle.Name</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right;">Order:</td>
+			<td>@Model.Order</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold" style="text-align:right;">Hint:</td>
+			<td>@Model.Text</td>
+		</tr>
+
+
+		</tbody>
+	</table>
+
+	<a asp-controller="Hints" asp-action="Index" class="btn btn-secondary">Back</a>
+
+</div>

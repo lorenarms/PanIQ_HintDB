@@ -75,6 +75,48 @@ namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 			return Json(new { data = sortedHints });
 		}
 
+		public IActionResult Details(int id)
+		{
+
+			var entry = _context.Hint
+				.Include(h => h.Puzzle)
+				.ThenInclude(p => p.Room).SingleOrDefault(h => h.Id == id);
+
+			
+				
+				
+			if (entry == null)
+			{
+				return new NotFoundResult();
+			}
+
+			return View(entry);
+		}
+
+		public IActionResult EditHint(int id)
+		{
+			var hint = _context.Hint
+				.Include(h => h.Puzzle)
+				.ThenInclude(p => p.Room).SingleOrDefault(h => h.Id == id);
+
+			if (hint == null)
+			{
+				return new NotFoundResult();
+			}
+
+			var viewModel = new HintFormViewModel
+			{
+				Id = id,
+				Order = hint.Order,
+				Text = hint.Text,
+				Puzzle = hint.Puzzle,
+				PuzzleId = hint.PuzzleId,
+
+			};
+			
+			return View("EditHint", viewModel);
+		}
+
 
 	}
 }

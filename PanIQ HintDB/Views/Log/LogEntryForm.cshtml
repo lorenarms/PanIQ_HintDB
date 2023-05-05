@@ -6,8 +6,13 @@
 	ViewBag.Title = Model.Title;
 }
 
+@*
+	TODO: Add validation to this form
+*@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
 
 <h2>@Model.Title</h2>
 
@@ -27,18 +32,24 @@
 				"Name"), 
 			"Select a Room", 
 			new { @class="form-control", id="roomList"})
-		@Html.ValidationMessageFor(r => r.RoomId)
+		<span asp-validation-for="RoomId" class="text-danger"></span>
 	</div>
 	
-	<div class="mb-3" id="PuzzleSelectDropdownDiv">
-		@Html.LabelFor(p => p.PuzzleId)
-		<select asp-for="PuzzleId" class="form-control" id="PuzzleSelectDropdown"></select>
-	</div>
+	<div id="dropDownMenusForForm">
+		<div class="mb-3" id="PuzzleSelectDropdownDiv" >
+			@Html.LabelFor(p => p.PuzzleId)
+			<select asp-for="PuzzleId" class="form-control" id="PuzzleSelectDropdown"></select>
+			<span asp-validation-for="PuzzleId" class="text-danger"></span>
+		
+		</div>
 
-	<div class="mb-3" id="HintSelectDropdownDiv">
-		@Html.LabelFor(h => h.HintId)
-		<select asp-for="HintId" class="form-control" id="HintSelectDropdown"></select>
+		<div class="mb-3" id="HintSelectDropdownDiv">
+			@Html.LabelFor(h => h.HintId)
+			<select asp-for="HintId" class="form-control" id="HintSelectDropdown"></select>
+			<span asp-validation-for="HintId" class="text-danger"></span>
+		</div>
 	</div>
+	
 
 
 	<div class="mb-3" id="EntryTextFields">
@@ -58,7 +69,7 @@
 
 	
 	@Html.HiddenFor(h => h.Id)
-	<button id="newlogsubmit" type="submit" class="btn btn-primary">Save</button>
+	<button type="submit" class="btn btn-primary">Save</button>
 	<a asp-action="Index" asp-controller="Log" class="btn btn-secondary">Back</a>
 
 }
@@ -66,6 +77,11 @@
 
 <script>
 	$(document).ready(function () {
+
+		var vm = {
+
+		}
+
 		$("#PuzzleSelectDropdownDiv").hide();
 		$("#HintSelectDropdownDiv").hide();
 		$("#EntryTextFields").hide();
@@ -73,6 +89,8 @@
 		$("#newlogsubmit").click(function() {
 			toastr.success('Log successfully recorded!');
 		});
+
+		
 	});
 
 	$("#roomList").change(function () {
@@ -88,7 +106,7 @@
 				success:
 					function (response) {
 						console.log(response.data);
-						var markup = "<option value='0'>Select a Puzzle</option>";
+						var markup = "<option value=''>Select a Puzzle</option>";
 
 						for (var i = 0; i < response.data.length; i++) {
 							markup += "<option value=" + response.data[i].id + ">" + response.data[i].order.toString() + ": " + response.data[i].name + "</option>";
@@ -119,7 +137,7 @@
 				success:
 					function (response) {
 						console.log(response.data);
-						var markup = "<option value='0'>Select a Hint</option>";
+						var markup = "<option value=''>Select a Hint</option>";
 
 						for (var i = 0; i < response.data.length; i++) {
 							

@@ -1,0 +1,67 @@
+﻿@model PanIQ_HintDB.ViewModels.RoomsDetailsViewModel
+
+<h2>Room Name: @Model.Room.Name</h2>
+
+<div>
+	<p class="font-weight-bold">Puzzles:</p>
+
+	<table class="table table-borderless table-hover table-responsive">
+		<tbody>
+		
+		<p>
+			@Html.ActionLink("New Puzzle", "New","Puzzles",
+				null, new { @class="btn btn-primary mx-auto" })
+		</p>
+		
+
+		@foreach (var puzzle in @Model.Puzzles)
+		{
+			<tr>
+					<td><div class="m-1">@puzzle.Order : @puzzle.Name</div></td>
+				<td>
+					<div class="d-flex justify-content-lg-end">
+						<div class="m-1">
+							<a href="@Url.Action("Details", "Puzzles", new {id = puzzle.Id})">
+								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-info-square icon-primary" viewBox="0 0 16 16">
+									<path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+									<path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+								</svg>
+							</a>
+						</div>
+						<div class="m-1">
+							<a href="@Url.Action("Edit", "Puzzles", new {id = @puzzle.Id})">
+								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="icon-primary" class="bi bi-pencil-square icon-primary" viewBox="0 0 16 16">
+									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+								</svg>
+							</a>
+						</div>
+						
+						
+						@*<div class="m-1">
+							@Html.ActionLink("Details",
+								"Details",
+								"Puzzles",
+								new {id = puzzle.Id},
+								new {@class = "btn btn-outline-primary"})
+						</div>
+						<div class="m-1">
+							@Html.ActionLink("Edit",
+								"Edit",
+								"Puzzles",
+								new {id = puzzle.Id},
+								new {@class = "btn btn-primary"})
+						</div>
+						*@
+						
+					</div>
+					
+				</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+
+	<a asp-controller="Rooms" asp-action="Index" class="btn btn-secondary">Back</a>
+
+</div>

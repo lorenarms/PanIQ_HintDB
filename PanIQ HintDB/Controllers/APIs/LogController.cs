@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PanIQ_HintDB.Data;
+using PanIQ_HintDB.Models;
 
 namespace PanIQ_HintDB.Controllers.APIs
 {
@@ -24,8 +25,23 @@ namespace PanIQ_HintDB.Controllers.APIs
 				LogEntry.
 				Include(h => h.Hint).
 				ThenInclude(p => p.Puzzle).
-				ThenInclude(r => r.Room)
-				.ToList());
+				ThenInclude(r => r.Room).
+				ToList());
+		}
+
+		[HttpPost]
+		[Route("/api/newLog")]
+		public IActionResult CreateNewLog([FromForm] LogEntry newLog)
+		{
+			var puzzle = _context.Puzzle.SingleOrDefault(
+				p => p.Id == newLog.Hint.PuzzleId);
+
+			if (puzzle == null)
+			{
+				return BadRequest("The puzzle selected is not valid.");
+			}
+
+			return Ok();
 		}
 	}
 }

@@ -70,42 +70,48 @@ namespace PanIQ_HintDB.Controllers.UI_Page_Controllers
 
 			_context.SaveChanges();
 
-			return RedirectToAction("Index", "Puzzles");
+			return RedirectToAction("Index", "Rooms");
 		}
 
-		//public IActionResult Edit(int id)
-		//{
+		public IActionResult Edit(int id)
+		{
 
-		//	return View("PuzzleForm");
-		//}
+			var puzzle = _context.Puzzle.SingleOrDefault(p => p.Id == id);
 
-		//public IActionResult Save(Puzzle puzzle)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		var viewModel = new PuzzleFormViewModel(puzzle)
-		//		{
-		//			Rooms = _context.Rooms.ToList()
-		//		};
-		//		return View("PuzzleForm", viewModel);
-		//	}
+			if (puzzle == null)
+			{
+				return new NotFoundResult();
+			}
 
-		//	if (puzzle.Id == 0)
-		//	{
-		//		_context.Puzzle.Add(puzzle);
-		//	}
-		//	else
-		//	{
-		//		var puzzleInDb = _context.Puzzle.Single(p => p.Id == puzzle.Id);
+			var viewModel = new PuzzleFormViewModel(puzzle)
+			{
+				Rooms = _context.Rooms.ToList(),
+			};
 
-		//		puzzleInDb.Name = puzzle.Name;
-		//		puzzleInDb.Room = puzzle.Room;
-		//		puzzleInDb.Order = puzzle.Order;
-		//	}
+			return View("PuzzleForm", viewModel);
+		}
 
-		//	_context.SaveChanges();
+		public IActionResult Details(int id)
+		{
+			var puzzle = _context.Puzzle
+				.Include(r => r.Room).SingleOrDefault(p => p.Id == id);
 
-		//	return RedirectToAction("Index", "Puzzles");
-		//}
+			if (puzzle == null)
+			{
+				return new BadRequestResult();
+			}
+
+			var hints = _context.Hint.Where(x => x.PuzzleId == id).ToList();
+
+			var viewModel = new PuzzleDetailsViewModel
+			{
+				Hints = hints,
+				Puzzle = puzzle
+			};
+
+			return View("Details", viewModel);
+		}
+
+		
 	}
 }
