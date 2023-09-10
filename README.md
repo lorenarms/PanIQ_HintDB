@@ -130,7 +130,7 @@ This project was built with the following applications, languages, and libraries
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To copy this project I first recommend getting the <a href="https://codewithmosh.com/p/asp-net-mvc">Vidly course</a> from Mosh Hamedami and following along, it was a great experience and you will learn a lot. This project was built in the same way as that, using MVC architecture and C# with Razor pages.
+Feel free to fork the poject as needed.
 
 ### Prerequisites
 
