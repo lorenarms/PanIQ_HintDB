@@ -90,13 +90,13 @@ My goal for this project was to build an easy-to-use web-application for game ma
   During the course of a typical escape room game, players need hints to help them move forward with certain puzzles. Until now, those hints were logged in a Google spreadsheet, with a new document for each week. This resulted in a large amount of data that was ultimately hard to manage and search.
 </p>
 
-<img src="https://github.com/lorenarms/PanIQ_HintDB/blob/master/PanIQ%20HintDB/wwwroot/Images/log_page.png">
-
-_Hint Log database using DataTables_
-
 <p>
   This application addresses that issue by keeping all hint logs in one database that is easily managed and searched. The Form prepopulates the date and time so Game Masters don't have to worry about doing that themselves. The Form is dynamic, and the dropdown selections change based on the previous drop down option that is seleced by the Game Master.
 </p>
+
+<img src="https://github.com/lorenarms/PanIQ_HintDB/blob/master/PanIQ%20HintDB/wwwroot/Images/log_page.png">
+
+_Hint Log database using DataTables_
 
 ### Why did I build this?
 
