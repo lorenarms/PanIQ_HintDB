@@ -81,8 +81,13 @@ _Adding a hint to the database, showcasing dynamic dropdown menus_
 <p>
 I designed and built this project from scratch with the goal of creating an easy-to-use web application for escape room Game Masters to log hints.
 </p>
+
+### The Goal
+
+My goal for this project was to build an easy-to-use web-application for game masters to track hints and problems (glitches) in the escape room, during the normal course of gameplay. The application needed to have access to a databse of the entries for technicians and managers to review and query. 
+
 <p>
-  During the course of a typical escape room game, players need hints to help them move forward with certain puzzles. Until now, those hints were then logged in a Google spreadsheet, with a new document for each week. This resulted in a large amount of data that was ultimately hard to manage and search.
+  During the course of a typical escape room game, players need hints to help them move forward with certain puzzles. Until now, those hints were logged in a Google spreadsheet, with a new document for each week. This resulted in a large amount of data that was ultimately hard to manage and search.
 </p>
 
 <img src="https://github.com/lorenarms/PanIQ_HintDB/blob/master/PanIQ%20HintDB/wwwroot/Images/log_page.png">
@@ -93,9 +98,9 @@ _Hint Log database using DataTables_
   This application addresses that issue by keeping all hint logs in one database that is easily managed and searched. The Form prepopulates the date and time so Game Masters don't have to worry about doing that themselves. The Form is dynamic, and the dropdown selections change based on the previous drop down option that is seleced by the Game Master.
 </p>
 
+### Why did I build this?
 
 <p>
-Why did I build this?
 I found the old "database" system was cumbersome for Game Masters during games, especially when they are managing three or more at once. This was also a good way for me to practice my API-building skills using SQL databases. I love to practice the new things I learn and this was a great way for me to do that. 
 </p>
 <p>
