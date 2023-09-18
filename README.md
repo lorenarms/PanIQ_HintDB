@@ -26,7 +26,7 @@
     <img src="https://github.com/lorenarms/PanIQ_HintDB/blob/master/PanIQ%20HintDB/wwwroot/Images/horseshoe.png" alt="Logo">
   </a>
 
-  <h3 align="center">Escape Room Hint Databse</h3>
+  <h3 align="center">Escape Room Hint Database</h3>
 
   <p align="center">
     A web application built from scratch with C# and ASP.NET Core
